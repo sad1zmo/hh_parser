@@ -257,8 +257,6 @@ def get_average_salary(all_vacancies, site):
         if predict_rub_salary:
             vacancy_count += 1
             total_salary += predict_rub_salary
-        else:
-            avarage_salary += 0  # на весь язык во всех вакансиях не указана зп
         if vacancy_count:
             avarage_salary = total_salary / vacancy_count
     return int(avarage_salary), vacancy_count
@@ -297,9 +295,9 @@ def main():
     env = Env()
     env.read_env()
     sj_secret_key = env.str('SJ_SECRET_KEY')
-    print(make_vacancies_table(
-        gather_languages_statistics_hh(TOP_LANGUAGE_VACANCIES), 'HH'))
-    print()
+    # print(make_vacancies_table(
+    #     gather_languages_statistics_hh(TOP_LANGUAGE_VACANCIES), 'HH'))
+    # print()
     print(make_vacancies_table(
         gather_languages_statistics_sj(
             TOP_LANGUAGE_VACANCIES,
