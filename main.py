@@ -297,7 +297,6 @@ def main():
     env = Env()
     env.read_env()
     sj_secret_key = env.str('SJ_SECRET_KEY')
-    print(sj_secret_key)
     print(make_vacancies_table(
         gather_languages_statistics_hh(TOP_LANGUAGE_VACANCIES), 'HH'))
     print()
