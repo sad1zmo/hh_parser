@@ -64,7 +64,7 @@ def get_hh_vacancies(language):
             'date_from': month_ago,
             'only_with_salary': 'true',
             'page': page
-            }
+        }
         page_response = requests.get(vacancies_url, params=payload)
         page_response.raise_for_status()
 
@@ -138,12 +138,12 @@ def gather_languages_statistics_hh(languages):
                                                                     'hh')
             avarage_salary, salary_count = get_average_salary(
                 hh_vacancies, 'hh'
-                )
+            )
             language_statistic[language] = {
                 'vacancies_found': count_language_vacancies,
                 'vacancies_processed': salary_count,
                 'average_salary': avarage_salary
-                }
+            }
     return language_statistic
 
 
@@ -166,12 +166,12 @@ def gather_languages_statistics_sj(languages, secret_key):
                                                                     secret_key)
             avarage_salary, salary_count = get_average_salary(
                 sj_vacancies, 'sj'
-                )
+            )
             language_statistic[language] = {
                 'vacancies_found': count_language_vacancies,
                 'vacancies_processed': salary_count,
                 'average_salary': avarage_salary
-                }
+            }
     return language_statistic
 
 
@@ -239,14 +239,14 @@ def get_average_salary(all_vacancies, site):
     - avarage_salary (int): The average salary calculated from the vacancies.
     - vacancy_count (int): The number of vacancies processed.
 
-    This function iterates over the list of vacancies and calculates the average salary. 
+    This function iterates over the list of vacancies and calculates the average salary.
     It checks the site parameter to determine which prediction function to use for calculating the salary.
     If the prediction function returns a value, it increments the vacancy_count and adds the salary to the total.
     If the prediction function returns None, it adds 0 to the average_salary.
     Finally, it calculates the average_salary by dividing the total salary by the vacancy_count.
     The function returns the average_salary and the vacancy_count as a tuple.
     """
-    salary = 0
+    total_salary = 0
     vacancy_count = 0
     avarage_salary = 0
     for vacancy in all_vacancies:
@@ -256,11 +256,11 @@ def get_average_salary(all_vacancies, site):
             predict_rub_salary = predict_rub_salary_sj(vacancy)
         if predict_rub_salary:
             vacancy_count += 1
-            salary += predict_rub_salary
+            total_salary += predict_rub_salary
         else:
             avarage_salary += 0  # на весь язык во всех вакансиях не указана зп
         if vacancy_count:
-            avarage_salary = salary / vacancy_count
+            avarage_salary = total_salary / vacancy_count
     return int(avarage_salary), vacancy_count
 
 

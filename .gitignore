@@ -9,6 +9,7 @@ project/
 manage.py
 pyvenv.cfg
 super.job
+.vscode
 
 # C extensions
 *.so
