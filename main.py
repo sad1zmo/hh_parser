@@ -7,8 +7,6 @@ from time import sleep
 from terminaltables import SingleTable
 from environs import Env
 
-# secret_key = ('v3.r.122070222.d26c71f14231fc9fdf8d7d0eb3c95fa885b39c63.'
-#               'b52909c3ef3c40f451b3349418a54726b848daa7')
 
 HH_MOSCOW_AREA_ID = 1
 SJ_MOSCOW_AREA_ID = 4
