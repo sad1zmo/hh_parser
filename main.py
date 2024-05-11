@@ -278,12 +278,12 @@ def make_vacancies_table(vacancies_statistic, site):
     title = f'Статистика поиска вакансий на {site}'
     table_data = [['Язык программирования', 'Вакансий найдено',
                    'Вакансий обработано', 'Средняя зарплата']]
-    for item in vacancies_statistic:
+    for language_name, statistic in vacancies_statistic.items():
         table_data.append([
-            item,
-            vacancies_statistic[item]['vacancies_found'],
-            vacancies_statistic[item]['vacancies_processed'],
-            vacancies_statistic[item]['average_salary']
+            language_name,
+            statistic['vacancies_found'],
+            statistic['vacancies_processed'],
+            statistic['average_salary']
         ])
 
     table_instance = SingleTable(table_data, title)
