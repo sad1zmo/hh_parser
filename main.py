@@ -208,8 +208,7 @@ def predict_rub_salary_hh(vacancy):
 
 
 def predict_rub_salary_sj(vacancy):
-    """A function that predicts the salary in Russian Rubles for a certain.
-
+    """A function that predicts the salary in Russian Rubles for a certain
     vacancy on the Superjob site.
 
     Parameters:
