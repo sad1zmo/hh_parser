@@ -130,7 +130,7 @@ def gather_languages_statistics_hh(languages):
         if hh_vacancies:
             count_language_vacancies = vacancies_found
             avarage_salary, salary_count = get_average_salary(
-                hh_vacancies, "hh"
+                hh_vacancies, predict_rub_salary_hh
             )
             language_statistic[language] = {
                 "vacancies_found": count_language_vacancies,
@@ -158,7 +158,7 @@ def gather_languages_statistics_sj(languages, secret_key):
         if sj_vacancies:
             count_language_vacancies = vacancies_found
             avarage_salary, salary_count = get_average_salary(
-                sj_vacancies, "sj"
+                sj_vacancies, predict_rub_salary_sj
             )
             language_statistic[language] = {
                 "vacancies_found": count_language_vacancies,
@@ -226,26 +226,7 @@ def predict_rub_salary_sj(vacancy):
     return None
 
 
-def predict_rub_salary_for_site(vacancy, site):
-    """A function that predicts the salary in Russian Rubles for a certain
-    vacancy on the specified site.
-
-    Parameters:
-    - vacancy (dict): A dictionary containing information about the
-    vacancy.
-    - site (str): The name of the site.
-
-    Returns:
-    - int or None: The predicted salary in Russian Rubles or None if
-    the currency is not applicable for the site.
-    """
-    if site == "hh":
-        return predict_rub_salary_hh(vacancy)
-    if site == "sj":
-        return predict_rub_salary_sj(vacancy)
-
-
-def get_average_salary(all_vacancies, site):
+def get_average_salary(all_vacancies, predict_rub_salary_for_site):
     """Calculate the average salary and the number of vacancies for a given
     site.
 
@@ -272,7 +253,7 @@ def get_average_salary(all_vacancies, site):
     vacancy_count = 0
     avarage_salary = 0
     for vacancy in all_vacancies:
-        predict_rub_salary = predict_rub_salary_for_site(vacancy, site)
+        predict_rub_salary = predict_rub_salary_for_site(vacancy)
         if predict_rub_salary:
             vacancy_count += 1
             total_salary += predict_rub_salary
