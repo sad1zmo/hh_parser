@@ -60,7 +60,7 @@ def get_hh_vacancies(language):
         vacancies_found = page_payload["found"]
         if page >= page_payload["pages"]:
             break
-        if page == 5:  # поставил задержку потому что api отваливалось по таймауту из за ограничений
+        if page == 5:
             sleep(10)
         vacancies.extend(page_payload["items"])
     return vacancies, vacancies_found
@@ -227,6 +227,25 @@ def predict_rub_salary_sj(vacancy):
     return None
 
 
+def predict_rub_salary_for_site(vacancy, site):
+    """A function that predicts the salary in Russian Rubles for a certain
+    vacancy on the specified site.
+
+    Parameters:
+    - vacancy (dict): A dictionary containing information about the
+    vacancy.
+    - site (str): The name of the site.
+
+    Returns:
+    - int or None: The predicted salary in Russian Rubles or None if
+    the currency is not applicable for the site.
+    """
+    if site == "hh":
+        return predict_rub_salary_hh(vacancy)
+    if site == "sj":
+        return predict_rub_salary_sj(vacancy)
+
+
 def get_average_salary(all_vacancies, site):
     """Calculate the average salary and the number of vacancies for a given
     site.
@@ -254,10 +273,7 @@ def get_average_salary(all_vacancies, site):
     vacancy_count = 0
     avarage_salary = 0
     for vacancy in all_vacancies:
-        if site == "hh":
-            predict_rub_salary = predict_rub_salary_hh(vacancy)
-        if site == "sj":
-            predict_rub_salary = predict_rub_salary_sj(vacancy)
+        predict_rub_salary = predict_rub_salary_for_site(vacancy, site)
         if predict_rub_salary:
             vacancy_count += 1
             total_salary += predict_rub_salary
